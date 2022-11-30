@@ -5,14 +5,14 @@ module.exports = {
     await queryInterface.createTable('categories', {
       id: {
         allowNull: false,
-        primareKey: true,
+        primaryKey: true,
         autoIncrement: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
         allowNull: false,
         type: Sequelize.STRING,
-      }
+      },
     });
   },
 
