@@ -7,7 +7,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primareKey: true,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       title: {
         allowNull: false,
@@ -27,10 +27,10 @@ module.exports = {
         }
       },
       published: {
-        allowNull: false,
+        type: Sequelize.DATE,
       },
       updated: {
-        allowNull: false,
+        type: Sequelize.DATE,
       }
     })
 
