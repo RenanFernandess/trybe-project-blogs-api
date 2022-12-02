@@ -12,4 +12,20 @@ const checkLogin = Joi.object({
   'string.base': ERROR_MESSAGE,
 });
 
-module.exports = { checkLogin };
+const checkUser = Joi.object({
+  displayName: Joi.string().min(8).required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).required(),
+  image: Joi.string(),
+}).required().message({
+  'any.required': ERROR_MESSAGE,
+  'string.empty': ERROR_MESSAGE,
+  'string.base': ERROR_MESSAGE,
+  'string.min': '{#label} length must be at least {#limit} characters long',
+  'string.email': '{#label} must be a valid email',
+});
+
+module.exports = {
+  checkLogin,
+  checkUser,
+};
