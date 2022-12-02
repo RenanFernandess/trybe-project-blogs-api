@@ -1,5 +1,6 @@
 const { User } = require('../models');
 const { validateLogin } = require('./validations/login.validation');
+const { createToken } = require('../auth/secret');
 
 const login = async (fields) => {
   const error = validateLogin(fields);
@@ -8,8 +9,8 @@ const login = async (fields) => {
   const result = await User.findOne({ where: fields });
 
   if (!result) return { type: 400, message: 'Invalid fields' };
-  console.log(result);
-  return { type: null, message: result };
+
+  return { type: null, message: createToken(result) };
 };
 
 module.exports = {
