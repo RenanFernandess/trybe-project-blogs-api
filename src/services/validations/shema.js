@@ -7,6 +7,7 @@ const checkLogin = Joi.object({
   password: Joi.string().min(3).required(),
 }).required().messages({
   'any.required': ERROR_MESSAGE,
+  'string.empty': ERROR_MESSAGE,
   'string.email': ERROR_MESSAGE,
   'string.base': ERROR_MESSAGE,
 });
