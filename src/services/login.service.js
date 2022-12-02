@@ -7,7 +7,9 @@ const login = async (fields) => {
   
   const result = await User.findOne({ where: fields });
 
+  if (!result) return { type: 400, message: 'Invalid fields' };
   console.log(result);
+  return { type: null, message: result };
 };
 
 module.exports = {
