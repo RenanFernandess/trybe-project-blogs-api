@@ -17,7 +17,7 @@ const checkUser = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
   image: Joi.string(),
-}).required().message({
+}).required().messages({
   'any.required': ERROR_MESSAGE,
   'string.empty': ERROR_MESSAGE,
   'string.base': ERROR_MESSAGE,
