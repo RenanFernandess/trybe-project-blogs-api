@@ -13,7 +13,14 @@ const getAllUsers = async (_req, res) => {
   return res.status(200).json(message);
 };
 
+const getUserById = async ({ params: { id } }, res) => {
+  const { type, message } = await userService.findByUserData({ id });
+  if (type) return res.status(type).json({ message });
+  return res.status(200).json(message);
+};
+
 module.exports = {
   register,
   getAllUsers,
+  getUserById,
 };
