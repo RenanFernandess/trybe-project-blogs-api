@@ -8,4 +8,6 @@ userRoute.post('/', userController.register);
 
 userRoute.get('/', validateToken, userController.getAllUsers);
 
+userRoute.get('/:id', validateToken, userController.getUserById);
+
 module.exports = { userRoute };
