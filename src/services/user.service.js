@@ -13,4 +13,16 @@ const register = async ({ displayName, email, password, image }) => {
   return { type: null, message: createToken(user) };
 };
 
-module.exports = { register };
+const findByUserData = async (data) => {
+  const user = await User.findOne({
+    where: data,
+    attributes: { exclude: ['password'] },
+  });
+  if (!user) return { type: 404, message: 'User does not exist' };
+  return { type: null, message: user.dataValues };
+};
+
+module.exports = {
+  register,
+  findByUserData,
+};
