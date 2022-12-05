@@ -22,7 +22,15 @@ const findByUserData = async (data) => {
   return { type: null, message: user.dataValues };
 };
 
+const getAllUsers = async () => {
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+  console.log(users);
+
+  return { type: null, message: users };
+};
+
 module.exports = {
   register,
   findByUserData,
+  getAllUsers,
 };
