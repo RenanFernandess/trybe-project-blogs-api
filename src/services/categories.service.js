@@ -5,4 +5,12 @@ const setCategories = async (category) => {
   return { type: null, message: dataValues };
 };
 
-module.exports = { setCategories };
+const getCategories = async () => {
+  const result = await Category.findAll();
+  return { type: null, message: result };
+};
+
+module.exports = {
+  setCategories,
+  getCategories,
+};
