@@ -7,6 +7,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         field: 'post_id',
+        primaryKey: true,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         references: {
           model: 'blog_posts',
           key: 'id',
@@ -16,6 +19,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         field: 'category_id',
+        primaryKey: true,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         references: {
           model: 'categories',
           key: 'id',
