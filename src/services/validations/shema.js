@@ -25,7 +25,22 @@ const checkUser = Joi.object({
   'string.email': '{#label} must be a valid email',
 });
 
+const checkPost = Joi.object({
+  userId: Joi.number().min(1).required(),
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+  categoryIds: Joi.array().min(1).required(),
+}).required().messages({
+  'any.required': ERROR_MESSAGE,
+  'string.empty': ERROR_MESSAGE,
+  'string.base': ERROR_MESSAGE,
+  'number.base': ERROR_MESSAGE,
+  'number.min': ERROR_MESSAGE,
+  'array.min': 'one or more "categoryIds" not found',
+});
+
 module.exports = {
   checkLogin,
   checkUser,
+  checkPost,
 };
