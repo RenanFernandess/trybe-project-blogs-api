@@ -32,23 +32,30 @@ const getAllPost = async () => {
   try {
     const result = await BlogPost.findAll({
       include: [
-        {
-          model: Category,
-          as: 'categories',
-          through: { attributes: [] },
-        },
-        {
-          model: User,
-          as: 'user',
-          attributes: { exclude: ['password'] },
-        },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
       ],
     });
     return { type: null, message: result };
-  } catch (_e) { return INTERNAL_ERROR; }
+  } catch (_error) { return INTERNAL_ERROR; }
+};
+
+const findPostById = async (id) => {
+  try {
+    const result = await BlogPost.findOne({
+      where: { id },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    if (!result) return { type: 404, message: 'Post does not exist' };
+    return { type: null, message: result };
+  } catch (_error) { return INTERNAL_ERROR; }
 };
 
 module.exports = {
   setPost,
   getAllPost,
+  findPostById,
 };
