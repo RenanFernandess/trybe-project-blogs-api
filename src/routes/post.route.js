@@ -8,4 +8,6 @@ postRoute.post('/', validateToken, postController.setPost);
 
 postRoute.get('/', validateToken, postController.getAllPost);
 
+postRoute.get('/:id', validateToken, postController.findPostById);
+
 module.exports = { postRoute };
