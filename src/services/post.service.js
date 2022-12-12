@@ -21,8 +21,8 @@ const setPost = async (fields) => {
   const fieldError = validatePost(fields);
   if (fieldError.type) return fieldError;
   try {
-    const checkCategories = (await Promise.all(categoryIds.map((id) => Category.findByPk(id))))
-    .every((item) => item);
+    const categories = await Category.findAll({ where: { id: categoryIds } });
+    const checkCategories = (categories.length === categoryIds.length);
     if (!checkCategories) return { type: 400, message: 'one or more "categoryIds" not found' };
     return { type: null, message: await setPostAndCategory(fields) };
   } catch (error) { return INTERNAL_ERROR; }
