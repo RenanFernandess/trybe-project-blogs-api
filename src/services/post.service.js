@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, PostCategory, User, Category, sequelize } = require('../models');
 const { validatePost } = require('./validations/post.validation');
 
@@ -38,6 +39,19 @@ const getAllPost = async () => {
     });
     return { type: null, message: result };
   } catch (_error) { return INTERNAL_ERROR; }
+};
+
+const findPostByQuery = async (q) => {
+  const where = q ? { [Op.or]: [{ title: q }, { content: q }] } : {};
+  const post = await BlogPost.findAll({
+    where,
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  if (!post) return { type: 404, message: 'Post does not exist' };
+  return { type: null, message: post };
 };
 
 const findPostById = async (id) => {
@@ -96,4 +110,5 @@ module.exports = {
   findPostById,
   updatePost,
   deletePost,
+  findPostByQuery,
 };
