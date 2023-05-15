@@ -54,8 +54,31 @@ const findPostById = async (id) => {
   } catch (_error) { return INTERNAL_ERROR; }
 };
 
+const updatePost = async (data) => {
+  const { userId, id, title, content } = data;
+
+  if (!(title || content)) return { type: 400, message: 'Some required fields are missing' };
+
+  if ((await BlogPost.findOne({ where: { id } })).UserId !== userId) {
+    return { type: 401, message: 'Unauthorized user' };
+  }
+
+  const result = await BlogPost.update({ title, content }, { where: { userId, id } });
+  if (!result) return { type: 401, message: 'Not found' };
+
+  const post = await BlogPost.findOne({
+    where: { userId, id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return { type: null, message: post.dataValues };
+};
+
 module.exports = {
   setPost,
   getAllPost,
   findPostById,
+  updatePost,
 };
