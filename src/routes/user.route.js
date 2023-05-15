@@ -8,6 +8,8 @@ userRoute.post('/', userController.register);
 
 userRoute.get('/', validateToken, userController.getAllUsers);
 
+userRoute.delete('/me', validateToken, userController.deleteUser);
+
 userRoute.get('/:id', validateToken, userController.getUserById);
 
 module.exports = { userRoute };
