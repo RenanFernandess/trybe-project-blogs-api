@@ -24,7 +24,9 @@ module.exports = {
         references: {
           model: 'users',
           key: 'id',
-        }
+        },
+        onUpdate:'NO ACTION',
+        onDelete:'CASCADE',
       },
       published: {
         type: Sequelize.DATE,
