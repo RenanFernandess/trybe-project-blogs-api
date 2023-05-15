@@ -23,6 +23,13 @@ const getAllPost = async (_req, res) => {
   return res.status(200).json(message);
 };
 
+const findPostByQuery = async ({ query: { q } }, res) => {
+  const { type, message } = await postService.findPostByQuery(q);
+  if (type) return res.status(type).json({ message });
+
+  return res.status(200).json(message);
+};
+
 const findPostById = async ({ params: { id } }, res) => {
   const { type, message } = await postService.findPostById(id);
   if (type) return res.status(type).json({ message });
@@ -50,4 +57,5 @@ module.exports = {
   findPostById,
   updatePost,
   deletePost,
+  findPostByQuery,
 };
